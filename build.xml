@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project default="all" basedir=".">
+    
+    <property name="jquery" value="jquery-1.7" />
+    
+    <property name="fjant" location="lib/Fjant/bin/Fjant.jar" />
+    <property name="closurecompiler" location="lib/ClosureCompiler/compiler.jar" />
+    <property name="yuicompressor" location="lib/YUICompressor/yuicompressor-2.4.6.jar" />
+    
+    <taskdef name="jscomp" classname="com.google.javascript.jscomp.ant.CompileTask" classpath="${closurecompiler}" />
+    <taskdef name="fjant" classname="com.linusu.Fjant" classpath="${fjant}"/>
+    
+    <target name="compile.js">
+        <concat destfile="cdn/iio.js" force="no">
+            <filelist dir="src/js">
+                <file name="iio.search.js" />
+                <file name="iio.distance.js" />
+            </filelist>
+        </concat>
+    </target>
+    
+    <target name="compile.css">
+        <fjant output="cdn/iio.css">
+            <fileset dir="src/css" includes="*.css" />
+        </fjant>
+    </target>
+    
+    <target name="compile">
+        <parallel>
+            <antcall target="compile.js" />
+            <antcall target="compile.css" />
+        </parallel>
+    </target>
+    
+    <target name="minify.js" depends="compile.js">
+        <jscomp compilationLevel="simple" output="cdn/iio.min.js">
+            <sources dir="cdn">
+                <file name="iio.js" />
+            </sources>
+        </jscomp>
+    </target>
+    
+    <target name="minify.css" depends="compile.css">
+        <apply executable="java" dest="cdn">
+            <arg value="-jar" />
+            <arg value="${yuicompressor}" />
+            <srcfile />
+            <arg value="-o" />
+            <targetfile />
+            <fileset dir="cdn" includes="iio.css" />
+            <globmapper from="*.css" to="*.min.css" />
+        </apply>
+    </target>
+    
+    <target name="minify.png">
+        <mkdir dir="cdn/img" />
+        <apply executable="pngcrush" dest="cdn/img">
+            <arg value="-rem" />
+            <arg value="alla" />
+            <arg value="-reduce" />
+            <arg value="-brute" />
+            <srcfile />
+            <targetfile />
+            <fileset dir="src/png" includes="*.png" />
+            <identitymapper />
+        </apply>
+    </target>
+    
+    <target name="minify.jpg">
+        <mkdir dir="cdn/tmp" />
+        <apply executable="jpegtran" dest="cdn/tmp">
+            <arg value="-copy" />
+            <arg value="none" />
+            <arg value="-optimize" />
+            <arg value="-perfect" />
+            <arg value="-outfile" />
+            <targetfile />
+            <srcfile />
+            <fileset dir="src/jpg" includes="*.jpg" />
+            <identitymapper />
+        </apply>
+    </target>
+    
+    <target name="minify.gif">
+        <mkdir dir="cdn/img" />
+        <copy todir="cdn/img">
+            <fileset dir="src/gif" includes="*.gif" />
+        </copy>
+    </target>
+    
+    <target name="minify">
+        <parallel>
+            <antcall target="minify.js" />
+            <antcall target="minify.css" />
+            <antcall target="minify.png" />
+            <antcall target="minify.jpg" />
+            <antcall target="minify.gif" />
+        </parallel>
+    </target>
+    
+    <target name="gzip" depends="minify">
+        <parallel>
+            <gzip src="cdn/iio.min.js" destfile="cdn/iio.min.js.gz" />
+            <gzip src="cdn/iio.min.css" destfile="cdn/iio.min.css.gz" />
+            <gzip src="cdn/${jquery}.min.js" destfile="cdn/${jquery}.min.js.gz" />
+        </parallel>
+    </target>
+    
+    <target name="all" depends="gzip" />
+    
+</project>

@@ -1,0 +1,6 @@
+[submodule "lib/Buzzmix"]
+	path = lib/Buzzmix
+	url = git@github.com:LinusU/Buzzmix.git
+[submodule "lib/Fjant"]
+	path = lib/Fjant
+	url = git@github.com:LinusU/Fjant.git
