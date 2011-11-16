@@ -28,19 +28,48 @@
                 var $venues = $('#venues').html('');
                 
                 for(var i in venues) {
-                    
-                    var $div = $('<section />');
-                    
-                    $div.append('<h2>' + venues[i].title + '</h2>');
-                    $div.append('<p>' + isitopen.distance(venues[i].distance) + '</p>');
-                    $div.append('<p>' + venues[i].open + ' - ' + venues[i].close + '</p>');
-                    
-                    $div.click(function () {
+                    (function (v) {
                         
-                    });
-                    
-                    $venues.append($div);
-                    
+                        var $div = $('<section />');
+                        
+                        v.open = Date.parse(v.open);
+                        v.close = Date.parse((v.close == "24:00:00")?"00:00:00":v.close);
+                        
+                        if(v.open > v.close) {
+                            v.close.add(1).day();
+                        }
+                        
+                        $div.append('<h2>' + v.title + '</h2>');
+                        $div.append('<p>' + isitopen.distance(v.distance) + '</p>');
+                        
+                        var $p = $('<p />');
+                        
+                        if(v.open.compareTo(v.close) == 0) {
+                            
+                            $p.text("Dygnet runt!");
+                            
+                        } else {
+                            
+                            var update = function () {
+                                var min = Math.floor((v.close - (new Date())) / 60000);
+                                $p.text(Math.floor(min / 60) + ":" + (min % 60));
+                                if(min < 5) { $p.css({ color: 'red', fontWeight: 'bold' }); }
+                            };
+                            
+                            setInterval(update, 60000);
+                            update();
+                            
+                        }
+                        
+                        $div.append($p);
+                        
+                        $div.click(function () {
+                            
+                        });
+                        
+                        $venues.append($div);
+                        
+                    })(venues[i]);
                 }
                 
             });

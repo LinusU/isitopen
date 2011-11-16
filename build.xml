@@ -13,6 +13,7 @@
     <target name="compile.js">
         <concat destfile="cdn/iio.js" force="no">
             <filelist dir="src/js">
+                <file name="date.js" />
                 <file name="iio.search.js" />
                 <file name="iio.distance.js" />
             </filelist>
