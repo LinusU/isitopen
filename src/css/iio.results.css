@@ -9,6 +9,11 @@
 }
 
 #venues section {
-    margin-bottom: 21px;
+    margin-bottom: 6em;
+    clear:both;
+}
+
+#venues section p{
+	margin-left: 2em;
 }
 

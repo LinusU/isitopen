@@ -3,7 +3,7 @@
     
     <h1>Is It <a href="#">Open</a>?</h1>
     
-    <input type="text" value="Agnegatan, Västerås" />
+    <input type="text" placeholder="Agnegatan, Västerås" />
     
 </form>
 
@@ -52,7 +52,7 @@
                             
                             var update = function () {
                                 var min = Math.floor((v.close - (new Date())) / 60000);
-                                $p.text(Math.floor(min / 60) + ":" + (min % 60));
+                                $p.text(((min>=60)?(Math.floor(min / 60) + " timm" + (min<120?"e":"ar")):"") + " " + (min % 60) + " minuter");
                                 if(min < 5) { $p.css({ color: 'red', fontWeight: 'bold' }); }
                             };
                             
