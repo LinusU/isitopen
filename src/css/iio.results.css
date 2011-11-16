@@ -1,9 +1,14 @@
 
+#site {
+	margin: 70px auto auto 250px;
+}
+
 #venues {
     width: 960px;
     margin: 12px auto;
 }
 
 #venues section {
-    
+    margin-bottom: 21px;
 }
+

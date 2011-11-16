@@ -3,7 +3,7 @@
     
     <h1>Is It <a href="#">Open</a>?</h1>
     
-    <input type="text" />
+    <input type="text" value="Agnegatan, Västerås" />
     
 </form>
 

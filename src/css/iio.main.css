@@ -1,9 +1,39 @@
 
 html,
-body {
+body{
     margin: 0px;
     padding: 0px;
     font-family: 'Roboto', sans-serif;
+	color: #333;
+	font-size: 100%;
+	line-height:1.125em;
 }
 
+h1 {
+	font-size: 4.5em;
+	-webkit-margin-before: 0;
+	-webkit-margin-after: 0;
+	margin-bottom: 0.5em;
+}
 
+a {
+	text-decoration: none;
+}
+
+input[type="text"] {
+	margin-left: 2em;
+	margin-bottom: 1em;
+	width: 15em;
+	font-size: 2em;
+ 	padding: 0.1em 0.2em;
+ 	border-radius: 5px;
+ 	box-shadow: inset 2px 2px 5px #999;
+	border: none;
+ 	background: #EEE;
+ 	color: #888;
+}
+
+h1 a {
+	color: #37FF00;
+	text-shadow: 0 0 50px #82FC60,-1px 0 2px white, 1px 0 2px black;
+}
