@@ -8,9 +8,7 @@
 </form>
 
 <article id="venues">
-    
     <img src="{"img/loader.gif"|cdn}" />
-    
 </article>
 
 <script type="text/javascript">
@@ -21,7 +19,11 @@
         }
         
         navigator.geolocation.getCurrentPosition(function (pos) {
-            isitopen.Search.near(Math.round(pos.coords.latitude * 1E6), Math.round(pos.coords.longitude * 1E6), function (venues) {
+            isitopen.Search({
+                lat: Math.round(pos.coords.latitude * 1E6),
+                lon: Math.round(pos.coords.longitude * 1E6),
+                state: 'open'
+            }, function (venues) {
                 
                 var $venues = $('#venues').html('');
                 

@@ -1,17 +1,14 @@
 
 isitopen = window.isitopen || {};
 
-isitopen.Search = {
+isitopen.Search = function (data, callback) {
     
-    'near': function (lat, lon, callback) {
-        
-        $.getJSON(
-            '/search/near/',
-            {lat: lat, lon: lon},
-            callback
-        );
-        
-    }
-    
+    $.ajax({
+        url: '/search/',
+        dataType: 'json',
+        data: data,
+        success: callback,
+        type: "POST"
+    });
     
 };
