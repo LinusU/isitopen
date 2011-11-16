@@ -13,3 +13,6 @@ cdn/iio.min.js
 cdn/iio.min.js.gz
 
 cdn/jquery-1.7.min.js.gz
+
+.DS_Store
+.project
