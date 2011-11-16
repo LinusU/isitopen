@@ -19,12 +19,12 @@
 }
 
 #venues section h2 {
-    text-shadow: 0px 2px 0px white;
+    text-shadow: 0px 1px 0px white;
 }
 
 #venues section p {
 	margin-left: 2em;
 	float: left;
     color: #555;
-    text-shadow: 0px 2px 0px rgba(255, 255, 255, 0.5);
+    text-shadow: 0px 1px 0px rgba(255, 255, 255, 0.5);
 }
