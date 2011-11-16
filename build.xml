@@ -22,7 +22,12 @@
     
     <target name="compile.css">
         <fjant output="cdn/iio.css">
-            <fileset dir="src/css" includes="*.css" />
+            <fileset dir="src/css" includes="main.css" />
+            <fileset dir="src/css" includes="iio.*.css" />
+        </fjant>
+        <fjant output="cdn/mobile.css">
+            <fileset dir="src/css" includes="main.css" />
+            <fileset dir="src/css" includes="mobile.*.css" />
         </fjant>
     </target>
     
@@ -48,7 +53,10 @@
             <srcfile />
             <arg value="-o" />
             <targetfile />
-            <fileset dir="cdn" includes="iio.css" />
+            <fileset dir="cdn">
+                <include name="iio.css" />
+                <include name="mobile.css" />
+            </fileset>
             <globmapper from="*.css" to="*.min.css" />
         </apply>
     </target>
@@ -103,6 +111,7 @@
         <parallel>
             <gzip src="cdn/iio.min.js" destfile="cdn/iio.min.js.gz" />
             <gzip src="cdn/iio.min.css" destfile="cdn/iio.min.css.gz" />
+            <gzip src="cdn/mobile.min.css" destfile="cdn/mobile.min.css.gz" />
             <gzip src="cdn/${jquery}.min.js" destfile="cdn/${jquery}.min.js.gz" />
         </parallel>
     </target>

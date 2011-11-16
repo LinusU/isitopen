@@ -3,7 +3,8 @@
 <head>
     <title>Is It Open</title>
     <link rel="shortcut icon" href="{"favicon.png"|cdn}" />
-    <link rel="stylesheet" type="text/css" href="{"iio.min.css"|cdn}" />
+    <link rel="stylesheet" type="text/css" media="(min-width: 960px)" href="{"iio.min.css"|cdn}" />
+    <link rel="stylesheet" type="text/css" media="(max-width: 959px)" href="{"mobile.min.css"|cdn}" />
     <style type="text/css">
     @font-face {
         font-family: 'Roboto';
@@ -38,7 +39,7 @@
         
     </script>
     <![endif]-->
-    <meta name="viewport" content="user-scalable=no, width=1024" />
+    <meta name="viewport" content="user-scalable=no, width=device-width" />
     <script type="text/javascript">
         
         var _gaq = _gaq || [];

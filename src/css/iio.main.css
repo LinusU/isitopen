@@ -1,14 +1,4 @@
 
-html,
-body{
-    margin: 0px;
-    padding: 0px;
-    font-family: 'Roboto', sans-serif;
-	color: #333;
-	font-size: 100%;
-	line-height:1.125em;
-}
-
 h1 {
 	font-size: 4.5em;
 	-webkit-margin-before: 0;
@@ -42,9 +32,4 @@ input[type="text"] {
 h1 a {
 	color: #37FF00;
 	text-shadow: 0 0 50px #82FC60,-1px 0 2px white, 1px 0 2px black;
-}
-
-p {
-	float: left;
-	
 }

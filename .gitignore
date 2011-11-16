@@ -8,6 +8,10 @@ cdn/iio.css
 cdn/iio.min.css
 cdn/iio.min.css.gz
 
+cdn/mobile.css
+cdn/mobile.min.css
+cdn/mobile.min.css.gz
+
 cdn/iio.js
 cdn/iio.min.js
 cdn/iio.min.js.gz

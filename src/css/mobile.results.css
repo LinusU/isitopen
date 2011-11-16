@@ -1,0 +1,27 @@
+
+#venues section {
+    position: relative;
+    background: linear-gradient(top, #DDD 0%, #BBB 100%);
+    border-bottom: 1px solid #99A;
+    border-top: 1px solid #EEE;
+    padding: 8px 24px;
+    overflow: hidden;
+}
+
+#venues section:after {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    margin-top: -9px;
+    content: '▶';
+    display: block;
+}
+
+#venues section h2 {
+    text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.5);
+}
+
+#venues section p {
+	margin-left: 2em;
+	float: left;
+}

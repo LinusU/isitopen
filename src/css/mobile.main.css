@@ -1,0 +1,13 @@
+
+/* FIXME: TEMP */
+form {
+    background: -webkit-linear-gradient(top, #666 0%, #222 49%, #000 50%, #000 100%);
+    border-bottom: 1px solid #222;
+    border-top: 1px solid #888;
+    color: white !important;
+    text-align: center;
+}
+
+form input {
+    display: none;
+}
