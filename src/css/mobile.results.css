@@ -12,16 +12,19 @@
     position: absolute;
     right: 16px;
     top: 50%;
-    margin-top: -9px;
-    content: '▶';
+    margin-top: -16px;
+    content: url(img/right.png);
     display: block;
+    opacity: .75;
 }
 
 #venues section h2 {
-    text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.5);
+    text-shadow: 0px 2px 0px white;
 }
 
 #venues section p {
 	margin-left: 2em;
 	float: left;
+    color: #555;
+    text-shadow: 0px 2px 0px rgba(255, 255, 255, 0.5);
 }

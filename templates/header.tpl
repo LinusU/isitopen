@@ -40,6 +40,7 @@
     </script>
     <![endif]-->
     <meta name="viewport" content="user-scalable=no, width=device-width" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
     <script type="text/javascript">
         
         var _gaq = _gaq || [];
