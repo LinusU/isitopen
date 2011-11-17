@@ -20,3 +20,6 @@ cdn/jquery-1.7.min.js.gz
 
 .DS_Store
 .project
+
+*.pyc
+__pycache__
