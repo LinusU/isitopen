@@ -51,12 +51,18 @@
                         } else {
                             
                             var update = function () {
-                                var min = Math.floor((v.close - (new Date())) / 60000);
-                                $p.text(((min>=60)?(Math.floor(min / 60) + " timm" + (min<120?"e":"ar")):"") + " " + (min % 60) + " minuter");
+                                var min = Math.ceil((v.close - (new Date())) / 60000);
                                 if(min < 5) { $p.css({ color: 'red', fontWeight: 'bold' }); }
+                                if(min < 2) {
+                                    var sec = Math.floor((v.close - (new Date())) / 1000);
+                                    $p.text((sec>0)?(sec + " sekunder"):("Stängt!"));
+                                    if(sec > 0) { setTimeout(update, 1000); }
+                                } else {
+                                    $p.text(((min>=60)?(Math.floor(min / 60) + " timm" + (min<120?"e":"ar")):"") + " " + (min % 60) + " minuter");
+                                    setTimeout(update, 60000);
+                                }
                             };
                             
-                            setInterval(update, 60000);
                             update();
                             
                         }
