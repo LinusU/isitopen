@@ -1,7 +1,50 @@
 
-/* FIXME: TEMP */
 body {
-    border-top: 1px solid #E6E6E6;
+    padding-top: 45px;
+}
+
+header {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    height: 45px;
+    background: -webkit-linear-gradient(top, #B5C0CE 0%, #889BB3 49%, #7E94B0 50%, #6D83A1 100%);
+    border-bottom: 1px solid #2D3033;
+    border-top: 1px solid #CCD2DA;
+    color: white;
+    text-align: center;
+    margin: 0px;
+    text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.7);
+    font-family: 'Helvetica';
+    z-index: 5000;
+}
+
+header h1 {
+    font-weight: normal;
+    margin: 0px;
+    line-height: 45px;
+    font-size: 16pt;
+}
+
+header h1 a {
+    color: white;
+    text-decoration: none;
+}
+
+header a.left {
+    position: absolute;
+    left: 5px;
+    top: 5px;
+    height: 35px;
+    line-height: 36px;
+    text-decoration: none;
+    color: white;
+    padding: 0px 12px;
+    box-shadow: inset 0px 1px 4px black;
+    border-radius: 4px;
+    background-color: rgba(16, 24, 64, 0.1);
+    font-size: 11pt;
 }
 
 form {
@@ -19,11 +62,6 @@ form h1 {
     margin: 0px;
     padding: 14px 0px 18px;
     text-shadow: 0px -1px 8px rgba(0, 0, 0, 0.3);
-}
-
-form a {
-    color: white;
-    text-decoration: none;
 }
 
 form input {

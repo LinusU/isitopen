@@ -1,10 +1,10 @@
 
-<form action="" method="post">
-    
+<header>
     <h1>Is It <a href="#">Open</a>?</h1>
-    
+</header>
+
+<form action="" method="post">
     <input type="text" placeholder="Agnegatan, Västerås" />
-    
 </form>
 
 <article id="venues">
@@ -75,7 +75,7 @@
                         }
                         
                         $div.click(function () {
-                            
+                            window.open('/' + v.type + '/' + v.name + '/', '_self');
                         });
                         
                         $venues.append($div);
@@ -89,7 +89,7 @@
                 });
                 
             });
-        });
+        }, jQuery.noop, { maximumAge: 60000 });
         
     });
 </script>
