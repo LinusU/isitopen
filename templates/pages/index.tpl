@@ -19,6 +19,7 @@
         }
         
         navigator.geolocation.getCurrentPosition(function (pos) {
+            
             isitopen.Search({
                 lat: Math.round(pos.coords.latitude * 1E6),
                 lon: Math.round(pos.coords.longitude * 1E6),
@@ -40,9 +41,14 @@
                         }
                         
                         $div.append('<h2>' + v.title + '</h2>');
-                        $div.append('<p>' + isitopen.distance(v.distance) + '</p>');
                         
-                        var $p = $('<p />');
+                        var $distance = $('<p />').appendTo($div);
+                        
+                        $(window).bind('location', function () {
+                            $distance.text(isitopen.distance_to(v.lat, v.lon));
+                        });
+                        
+                        var $p = $('<p />').appendTo($div);
                         
                         if(v.open.compareTo(v.close) == 0) {
                             
@@ -51,23 +57,22 @@
                         } else {
                             
                             var update = function () {
-                                var min = Math.ceil((v.close - (new Date())) / 60000);
+                                var milli = (v.close - (new Date()));
+                                var min = Math.ceil(milli / 60000);
                                 if(min < 5) { $p.css({ color: 'red', fontWeight: 'bold' }); }
                                 if(min < 2) {
-                                    var sec = Math.floor((v.close - (new Date())) / 1000);
+                                    var sec = Math.floor(milli / 1000);
                                     $p.text((sec>0)?(sec + " sekunder"):("Stängt!"));
-                                    if(sec > 0) { setTimeout(update, 1000); }
+                                    if(sec > 0) { setTimeout(update, milli % 1000); }
                                 } else {
-                                    $p.text(((min>=60)?(Math.floor(min / 60) + " timm" + (min<120?"e":"ar")):"") + " " + (min % 60) + " minuter");
-                                    setTimeout(update, 60000);
+                                    $p.text(((min>=60)?(Math.floor(min / 60) + " timm" + (min<120?"e":"ar")):"") + " " + (min % 60) + " minut" + (min % 60 > 1 ? "er" : ""));
+                                    setTimeout(update, milli % 60000);
                                 }
                             };
                             
                             update();
                             
                         }
-                        
-                        $div.append($p);
                         
                         $div.click(function () {
                             
@@ -77,6 +82,11 @@
                         
                     })(venues[i]);
                 }
+                
+                navigator.geolocation.watchPosition(function (pos) {
+                    isitopen.coords.copy(pos.coords);
+                    $(window).trigger('location');
+                });
                 
             });
         });

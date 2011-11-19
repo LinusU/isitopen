@@ -1,6 +1,28 @@
 
 isitopen = window.isitopen || {};
 
+isitopen.coords = {
+    lat: 0,
+    lon: 0,
+    copy: function (coords) {
+        isitopen.coords.lat = Math.round(coords.latitude * 1E6);
+        isitopen.coords.lon = Math.round(coords.longitude * 1E6);
+    }
+};
+
+isitopen.distance_to = function (lat, lon) {
+    
+    if(isitopen.coords.lat == 0 && isitopen.coords.lon == 0) {
+        return "x km";
+    }
+    
+    return isitopen.distance(Math.sqrt(
+        Math.pow(isitopen.coords.lat - lat, 2) +
+        Math.pow(isitopen.coords.lon - lon, 2)
+    ));
+    
+};
+
 isitopen.distance = function (md) {
     
     var m = Math.round(md / 14.4128501);
