@@ -31,12 +31,16 @@ if(isset($_POST['state'])) {
 }
 
 if(isset($_POST['lat'], $_POST['lon'])) {
+    $city = city::nearest($_POST['lat'], $_POST['lon']);
     $select[] = sprintf("
         ROUND(SQRT(
             POW('%u' - `venue`.`lat`, 2) +
             POW('%u' - `venue`.`lon`, 2)
         )) AS `distance`
     ", $_POST['lat'], $_POST['lon']);
+    $where[] = sprintf("
+        `venue`.`city_id` = '%u'
+    ", $city->id);
     $order[] = "
         `distance` ASC
     ";
