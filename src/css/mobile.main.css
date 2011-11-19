@@ -53,17 +53,6 @@ form {
     padding-bottom: 44px;
 }
 
-form h1 {
-    background: -webkit-linear-gradient(top, #B5C0CE 0%, #889BB3 49%, #7E94B0 50%, #6D83A1 100%);
-    border-bottom: 1px solid #2D3033;
-    border-top: 1px solid #CCD2DA;
-    color: white;
-    text-align: center;
-    margin: 0px;
-    padding: 14px 0px 18px;
-    text-shadow: 0px -1px 8px rgba(0, 0, 0, 0.3);
-}
-
 form input {
     position: absolute;
     bottom: 5px;

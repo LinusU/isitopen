@@ -3,12 +3,14 @@
     <h1>Is It <a href="#">Open</a>?</h1>
 </header>
 
-<form action="" method="post">
-    <input type="text" placeholder="Agnegatan, Västerås" />
-</form>
-
 <article id="venues">
+    
+    <form action="" method="post">
+        <input type="text" placeholder="Agnegatan, Västerås" />
+    </form>
+    
     <img src="{"img/loader.gif"|cdn}" />
+    
 </article>
 
 <script type="text/javascript">
@@ -26,7 +28,9 @@
                 state: 'open'
             }, function (venues) {
                 
-                var $venues = $('#venues').html('');
+                var $venues = $('#venues');
+                
+                $venues.find('img, section').remove();
                 
                 for(var i in venues) {
                     (function (v) {
