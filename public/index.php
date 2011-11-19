@@ -9,9 +9,12 @@ require_once (dirname(__FILE__) . '/../lib/Buzzmix/require.php');
 /* Create the Buzzmix */
 $site = new Buzzmix(dirname(__FILE__) . '/..');
 
-/* Set header and footer */
-$site->setHeader('header.tpl');
-$site->setFooter('footer.tpl');
+/* Using AJAX? */
+if(!isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] != 'XMLHttpRequest') {
+    /* Set header and footer */
+    $site->setHeader('header.tpl');
+    $site->setFooter('footer.tpl');
+}
 
 /* Setup the MySQL Database */
 $site->mysqlSetup("localhost", "isitopen", "isitopen", "isitopen");
