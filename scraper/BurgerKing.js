@@ -97,7 +97,7 @@ request({ uri: "http://www.burgerking.se/t/RestaurantsXML.aspx" }, function (err
             var hours = parseHours(jQuery(body).find('.openinghours').text(), $(rest).attr('url'));
             
             console.log({
-                "name": "burgerking-" + $(rest).attr('name').toLowerCase().replace(/ /g, "-"),
+                "name": "burgerking-" + $(rest).attr('name').toLowerCase().replace(/ /g, "-").replace(/[åä]/g, "a").replace(/ö/g, "o"),
                 "title": "Burger King " + $(rest).attr('name'),
                 "type": "restaurant",
                 "lat": Math.round($(rest).attr('latitude') * 1E6),
