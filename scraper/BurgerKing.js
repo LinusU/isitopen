@@ -1,6 +1,7 @@
 
 var jQuery = require('jquery');
 var request = require('request');
+var isitopen = require('./isitopen');
 
 var $ = jQuery;
 
@@ -90,19 +91,33 @@ function parseHours(text, url) {
 request({ uri: "http://www.burgerking.se/t/RestaurantsXML.aspx" }, function (error, response, body) {
     
     var restaurants = jQuery(body).find('restaurant');
+    var requests = restaurants.length;
     
     restaurants.each(function (i, rest) {
         request({ uri: "http://www.burgerking.se" + $(rest).attr('url') }, function (error, response, body) {
             
             var hours = parseHours(jQuery(body).find('.openinghours').text(), $(rest).attr('url'));
             
-            console.log({
-                "name": "burgerking-" + $(rest).attr('name').toLowerCase().replace(/ /g, "-").replace(/[å]/g, "aa").replace(/[ä]/g, "ae").replace(/ö/g, "oe"),
+            if(hours === null) {
+                
+                if(--requests == 0) {
+                    isitopen.end();
+                }
+                
+                return ;
+            }
+            
+            isitopen.venue({
+                "name": "burgerking-" + isitopen.title2name($(rest).attr('name')),
                 "title": "Burger King " + $(rest).attr('name'),
                 "type": "restaurant",
                 "lat": Math.round($(rest).attr('latitude') * 1E6),
                 "lon": Math.round($(rest).attr('longitude') * 1E6),
                 "hours": hours
+            }, function () {
+                if(--requests == 0) {
+                    isitopen.end();
+                }
             });
             
         });
