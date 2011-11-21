@@ -23,7 +23,7 @@ exports.title2name = function (title) {
         .replace(/[ëêéè]/g, "e")
         .replace(/[üûúù]/g, "u")
         .replace(/[ïîíì]/g, "i")
-        .replace(/[öôóò]/g, "o");
+        .replace(/[ôóò]/g, "o");
 };
 
 exports.city = function (city, cb) {
