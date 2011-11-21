@@ -8,6 +8,6 @@ If you are uncertain where to begin, please feel free to contact a team member i
 
 ## Contact  ##
 
-- *Project Leader* Linus Unnebäck <linus@folkdatorn.se>
-- *Core Developer Backend* Emil [@sakjur](https://twitter.com/#!/sakjur) Tullstedt <sakjur@gmail.com>
-- *Core Developer Web Frontend* Jonathan Gill <mrjonathangill@gmail.com>
+- **Project Leader** <br /> Linus Unnebäck <linus@folkdatorn.se>
+- **Core Developer Backend** <br /> Emil [@sakjur](https://twitter.com/#!/sakjur) Tullstedt <sakjur@gmail.com>
+- **Core Developer Web Frontend** <br /> Jonathan Gill <mrjonathangill@gmail.com>
