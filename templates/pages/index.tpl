@@ -22,9 +22,11 @@
         
         navigator.geolocation.getCurrentPosition(function (pos) {
             
+            isitopen.coords.copy(pos.coords);
+            
             isitopen.Search({
-                lat: Math.round(pos.coords.latitude * 1E6),
-                lon: Math.round(pos.coords.longitude * 1E6),
+                lat: isitopen.coords.lat,
+                lon: isitopen.coords.lon,
                 state: 'open'
             }, function (venues) {
                 
@@ -86,6 +88,8 @@
                         
                     })(venues[i]);
                 }
+                
+                $(window).trigger('location');
                 
                 navigator.geolocation.watchPosition(function (pos) {
                     isitopen.coords.copy(pos.coords);
