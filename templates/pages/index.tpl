@@ -1,13 +1,19 @@
 
 <header>
     <h1>Is It <a href="#">Open</a>?</h1>
-</header>
-
-<article id="venues">
-    
+	    
     <form action="" method="post">
         <input type="text" placeholder="Agnegatan, Västerås" />
     </form>
+    <a id="optionstoggler" href="javascript:toggleOptions();">Alternativ</a>
+
+	<div id="options">
+		
+	</div>
+    
+</header>
+
+<article id="venues">    
     
     <img src="{"img/loader.gif"|cdn}" />
     

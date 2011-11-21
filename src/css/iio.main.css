@@ -1,4 +1,9 @@
 
+header {
+	margin-bottom: 4em;
+}
+
+
 h1 {
 	font-size: 4.5em;
 	-webkit-margin-before: 0;
@@ -18,7 +23,6 @@ a {
 
 input[type="text"] {
 	margin-left: 2em;
-	margin-bottom: 1em;
 	width: 15em;
 	font-size: 2em;
  	padding: 0.1em 0.2em;
