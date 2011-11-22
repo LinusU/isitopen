@@ -45,6 +45,9 @@
                         
                         var $div = $('<section />');
                         
+                        $div.data('lat', v.lat);
+                        $div.data('lon', v.lon);
+                        
                         v.open = Date.parse(v.open);
                         v.close = Date.parse((v.close == "24:00:00")?"00:00:00":v.close);
                         
