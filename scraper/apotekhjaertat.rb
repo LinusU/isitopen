@@ -3,7 +3,7 @@
 #
 # This Ruby script requires:
 # gem mechanize
-# gem nokogirl (provided by mechanize)
+# gem nokogiri (provided by mechanize)
 # ruby 1.9
 # libxslt-ruby
 # libxml2-ruby
