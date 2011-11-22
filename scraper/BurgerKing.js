@@ -5,21 +5,9 @@ var isitopen = require('./isitopen');
 
 var $ = jQuery;
 
-function parseTime(text) {
-    var r;
-    
-    r = /([0-9]{1,2})([.:]?([0-9]{1,2}))?/.exec(text);
-    
-    if(r) {
-        return r[1] + ":" + (r[3]?r[3]:"00");
-    }
-    
-    throw new Error("Unparseable time: " + text);
-}
-
 function assembleDay(r, mon, tue, wed, thu, fri, sat, sun) {
     var h = [], d = [null];
-    for(var i=1;i<r.length;i+=1) { h.push(parseTime(r[i])); }
+    for(var i=1;i<r.length;i+=1) { h.push(isitopen.parse.time(r[i])); }
     for(var i=0;i<h.length;i+=2) { d.push([h[i+0], h[i+1]]); }
     return [d[mon], d[tue], d[wed], d[thu], d[fri], d[sat], d[sun]];
 }

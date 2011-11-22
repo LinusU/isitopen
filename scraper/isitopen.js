@@ -1,5 +1,7 @@
 
 var mysql = require('mysql');
+var request = require('request');
+var querystring = require('querystring');
 
 var client = mysql.createClient({
     user: 'isitopen',
@@ -66,12 +68,12 @@ exports.venue = function (venue, cb) {
             
             client.query(
                 "INSERT INTO `venue` " +
-                "(`city_id`, `name`, `title`, `lat`, `lon`) " +
-                "VALUES(?, ?, ?, ?, ?) " +
+                "(`city_id`, `name`, `title`, `type`, `lat`, `lon`) " +
+                "VALUES(?, ?, ?, ?, ?, ?) " +
                 "ON DUPLICATE KEY UPDATE " +
-                "`city_id` = ?, `title` = ?, `lat` = ?, `lon` = ?",
-                [city_id, venue.name, venue.title, venue.lat, venue.lon,
-                city_id, venue.title, venue.lat, venue.lon]
+                "`city_id` = ?, `title` = ?, `type` = ?, `lat` = ?, `lon` = ?",
+                [city_id, venue.name, venue.title, venue.type, venue.lat, venue.lon,
+                city_id, venue.title, venue.type, venue.lat, venue.lon]
             );
             
             var hours = {};
@@ -161,4 +163,94 @@ exports.venue = function (venue, cb) {
 
 exports.end = function () {
     client.end();
+};
+
+/* Parse functions */
+exports.parse = {
+    time: function (text) {
+        var r;
+        
+        r = /([0-9]{1,2})([.:]?([0-9]{1,2}))?/.exec(text);
+        
+        if(r) {
+            return r[1] + ":" + (r[3]?r[3]:"00");
+        }
+        
+        throw new Error("Unparseable time: " + text);
+    }
+};
+
+/* GeoCoding */
+exports.geocode = function (opt, callback) {
+    
+    client.query(
+        "SELECT * FROM `geocode` " +
+        "WHERE `city` = ? " +
+        "AND `postcode` = ? " +
+        "AND `street` = ? ",
+        [opt.city, opt.postcode, opt.street],
+        function (err, res) {
+            
+            if(err) {
+                throw err;
+            }
+            
+            if(res.length > 0) {
+                callback(res[0]);
+                return ;
+            }
+            
+            var options = {
+                format: 'json',
+                countrycodes: opt.country,
+                q: opt.street + ", " + opt.city
+            };
+            
+            request({ uri: 'http://nominatim.openstreetmap.org/search?' + querystring.stringify(options) }, function (error, response, body) {
+                
+                var data = JSON.parse(body);
+                
+                opt.lat = null;
+                opt.lon = null;
+                
+                if(data.length == 1) {
+                    opt.lat = Math.round(data[0].lat * 1E6);
+                    opt.lon = Math.round(data[0].lon * 1E6);
+                } else {
+                    
+                    var matched = null;
+                    
+                    for(var i in data) {
+                        var reg = new RegExp(", " + opt.postcode.substr(0, 3) + " ?" + opt.postcode.substr(3) + ",");
+                        if(reg.test(data[i])) {
+                            if(matched === null) {
+                                matched = data[i];
+                            } else {
+                                matched = null;
+                                break ;
+                            }
+                        }
+                    }
+                    
+                    if(matched !== null) {
+                        opt.lat = Math.round(matched.lat * 1E6);
+                        opt.lon = Math.round(matched.lon * 1E6);
+                    }
+                    
+                }
+                
+                client.query(
+                    "INSERT INTO `geocode` " +
+                    "(`city`, `postcode`, `street`, `lat`, `lon`) " +
+                    "VALUES(?, ?, ?, ?, ?)",
+                    [opt.city, opt.postcode, opt.street, opt.lat, opt.lon],
+                    function () {  }
+                );
+                
+                callback(opt);
+            });
+            
+        }
+    )
+    
 };
