@@ -18,7 +18,7 @@ function parseHours(text, url) {
         return [null, null, null, null, null, null, null];
     }
     
-    text = text.replace(/\r?\n/g, " ").replace(/ +/g, " ").replace("–", "-");
+    text = text.replace(/\r?\n/g, " ").replace(/\s+/g, " ").replace("–", "-");
     
     var r;
     
@@ -40,14 +40,16 @@ function parseHours(text, url) {
     r = /sönd?a?g?-tors?d?a?g?:? ?([0-9.:]+)-([0-9.:]+),? ?fred?a?g?-lörd?a?g?:? ?([0-9.:]+)-([0-9.:]+)/i.exec(text);
     if(r) { return assembleDay(r, 1, 1, 1, 1, 2, 2, 1); }
     
+    r = /Sönd?a?g? ?- ?Månd?a?g? ([0-9.:]+)-([0-9.:]+)Tisd?a?g? ?- ?Torsd?a?g? ([0-9.:]+)-([0-9.:]+)Fred?a?g? ?- ?Lörd?a?g? ([0-9.:]+)-([0-9.:]+)/i.exec(text);
+    if(r) { return assembleDay(r, 1, 2, 2, 2, 3, 3, 1); }
+    
     r = /månd?a?g? ?- ?fred?a?g?:? ([0-9.:]+) ?- ?([0-9.:]+),? ?Lörd?a?g?:? ([0-9.:]+) ?- ?([0-9.:]+),? ?Sönd?a?g?:? ([0-9.:]+) ?- ?([0-9.:]+)/i.exec(text);
     if(r) { return assembleDay(r, 1, 1, 1, 1, 1, 2, 3); }
     
     r = /Mån-ons ([0-9.:]+)-([0-9.:]+) Tors-fre ([0-9.:]+)-([0-9.:]+) Lör-sön ([0-9.:]+)-([0-9.:]+)/i.exec(text);
     if(r) { return assembleDay(r, 1, 1, 1, 2, 2, 3, 3); }
     
-    //                           . That is not an ordinary space, stupid Burger King!
-    r = /Månd?a?g?-Torsd?a?g?:? ? ?([0-9.:]+)-([0-9.:]+),? ?Fred?a?g? ?- ?Lörd?a?g?:? ?([0-9.:]+)-([0-9.:]+),? ?Sönd?a?g?a?r? ?o?c?h? ?h?e?l?g?d?a?g?a?r?:? ?([0-9.:]+)-([0-9.:]+)/i.exec(text);
+    r = /Månd?a?g?-Torsd?a?g?:? ?([0-9.:]+)-([0-9.:]+),? ?Fred?a?g? ?- ?Lörd?a?g?:? ?([0-9.:]+)-([0-9.:]+),? ?Sönd?a?g?a?r? ?o?c?h? ?h?e?l?g?d?a?g?a?r?:? ?([0-9.:]+)-([0-9.:]+)/i.exec(text);
     if(r) { return assembleDay(r, 1, 1, 1, 1, 2, 2, 3); }
     
     r = /Mån-tors ([0-9.:]+)-([0-9.:]+), Fre ([0-9.:]+)-([0-9.:]+), Lör ([0-9.:]+)-([0-9.:]+)/i.exec(text);
