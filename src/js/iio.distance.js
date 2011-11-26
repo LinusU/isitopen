@@ -24,9 +24,10 @@ isitopen.distance_to = function (lat, lon) {
 };
 
 isitopen.distance = function (md) {
-    
-    var m = Math.round(md / 14.4128501);
-    
+    return Math.round(md / 14.4128501);
+};
+
+isitopen.meter2text = function (m) {
     if(m < 100) {
         return "Ett stenkast";
     } if(m < 1000) {
@@ -36,5 +37,4 @@ isitopen.distance = function (md) {
     } else {
         return Math.round(m / 1000) + " km";
     }
-    
 };

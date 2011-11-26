@@ -60,7 +60,7 @@
                         var $distance = $('<p />').appendTo($div);
                         
                         $(window).bind('location', function () {
-                            $distance.text(isitopen.distance_to(v.lat, v.lon));
+                            $distance.text(isitopen.meter2text(isitopen.distance_to(v.lat, v.lon)));
                         });
                         
                         var $p = $('<p />').appendTo($div);
@@ -103,6 +103,28 @@
                 navigator.geolocation.watchPosition(function (pos) {
                     isitopen.coords.copy(pos.coords);
                     $(window).trigger('location');
+                });
+                
+                $(window).bind('location', function () {
+                    
+                    var el = $('#venues section'),
+                        sort = [].sort;
+                    
+                    el.data('distance', false);
+                    
+                    sort.call(el, function (a, b) {
+                        
+                        var da = $(a).data('distance'),
+                            db = $(b).data('distance');
+                        
+                        if(da === false) { $(a).data('distance', da = isitopen.distance_to($(a).data('lat'), $(a).data('lon'))); }
+                        if(db === false) { $(b).data('distance', db = isitopen.distance_to($(b).data('lat'), $(b).data('lon'))); }
+                        
+                        return ( da > db ? 1 : -1 );
+                    }).each(function () {
+                        $('#venues').append($(this));
+                    });
+                    
                 });
                 
             });
