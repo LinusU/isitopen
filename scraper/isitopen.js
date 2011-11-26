@@ -47,6 +47,11 @@ exports.city = function (city, cb) {
 };
 
 exports.venue = function (venue, cb) {
+    
+    if(!("name" in venue)) {
+        venue.name = exports.title2name(venue.title);
+    }
+    
     client.query(
         "SELECT `id` FROM `city` " +
         "ORDER BY ROUND(SQRT( "+
