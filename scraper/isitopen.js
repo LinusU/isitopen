@@ -182,6 +182,20 @@ exports.parse = {
         }
         
         throw new Error("Unparseable time: " + text);
+    },
+    duration: function (text) {
+        var r;
+        
+        r = /(([0-9]{1,2})([.:]?([0-9]{1,2}))?) ?(-|to|till) ?(([0-9]{1,2})([.:]?([0-9]{1,2}))?)/i.exec(text);
+        
+        if(r) {
+            return [
+                exports.parse.time(r[1]),
+                exports.parse.time(r[6])
+            ];
+        }
+        
+        throw new Error("Unparseable duration: " + text);
     }
 };
 
