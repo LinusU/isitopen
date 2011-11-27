@@ -6,6 +6,8 @@ if($city === false) {
     return 404;
 }
 
+$smarty->contentType('text', 'json');
+
 $venues = venue::select()->where($city)->many();
 
 echo '{"license": "Copyright, All Rights Reserved, Usage of this data without explicit permission is strictly forbidden!", "data": [';
