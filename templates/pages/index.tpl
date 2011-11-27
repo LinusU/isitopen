@@ -8,7 +8,22 @@
     <a id="optionstoggler" href="javascript:toggleOptions();">Alternativ</a>
 
 	<div id="options">
-		
+		<form >
+			<label for="">Visa </label> <a id="venuetypechoose">allt</a> <label for="">som är</label>
+			<select>
+				<option>
+					Öppet
+				</option>	
+				<option>
+					Existerande
+				</option>
+				<option>
+					Stängt
+				</option>
+			</select>
+			
+			
+		</form>
 	</div>
     
 </header>
