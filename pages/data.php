@@ -24,14 +24,20 @@ foreach($venues as $key => $venue) {
     unset($data['id']);
     unset($data['city_id']);
     
-    $data['hours'] = array();
+    $data['hours'] = array(null, null, null, null, null, null, null);
     
     foreach($hours as $hour) {
-        $tmp = $hour->get_row();
-        unset($tmp['id']);
-        unset($tmp['venue_id']);
-        $tmp['weekday'] = explode(',', $tmp['weekday']);
-        $data['hours'][] = $tmp;
+        foreach(explode(',', $hour->weekday) as $day) {
+            switch($day) {
+                case 'mon': $data['hours'][0] = array($hour->open, $hour->close); break;
+                case 'tue': $data['hours'][1] = array($hour->open, $hour->close); break;
+                case 'wed': $data['hours'][2] = array($hour->open, $hour->close); break;
+                case 'thu': $data['hours'][3] = array($hour->open, $hour->close); break;
+                case 'fri': $data['hours'][4] = array($hour->open, $hour->close); break;
+                case 'sat': $data['hours'][5] = array($hour->open, $hour->close); break;
+                case 'sun': $data['hours'][6] = array($hour->open, $hour->close); break;
+            }
+        }
     }
     
     echo json_encode($data);
