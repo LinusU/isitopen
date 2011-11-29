@@ -220,13 +220,13 @@
                 var $venue = $($.nano(
                     $('#tpl-venue').text(), {
                         title: venue.title,
-                        mon: venue.hours[0][0] + " - " + venue.hours[0][1],
-                        tue: venue.hours[1][0] + " - " + venue.hours[1][1],
-                        wed: venue.hours[2][0] + " - " + venue.hours[2][1],
-                        thu: venue.hours[3][0] + " - " + venue.hours[3][1],
-                        fri: venue.hours[4][0] + " - " + venue.hours[4][1],
-                        sat: venue.hours[5][0] + " - " + venue.hours[5][1],
-                        sun: venue.hours[6][0] + " - " + venue.hours[6][1]
+                        mon: venue.hours[0]?venue.hours[0][0] + " - " + venue.hours[0][1]:"Stängt",
+                        tue: venue.hours[1]?venue.hours[1][0] + " - " + venue.hours[1][1]:"Stängt",
+                        wed: venue.hours[2]?venue.hours[2][0] + " - " + venue.hours[2][1]:"Stängt",
+                        thu: venue.hours[3]?venue.hours[3][0] + " - " + venue.hours[3][1]:"Stängt",
+                        fri: venue.hours[4]?venue.hours[4][0] + " - " + venue.hours[4][1]:"Stängt",
+                        sat: venue.hours[5]?venue.hours[5][0] + " - " + venue.hours[5][1]:"Stängt",
+                        sun: venue.hours[6]?venue.hours[6][0] + " - " + venue.hours[6][1]:"Stängt"
                     }
                 )).appendTo('body');
                 

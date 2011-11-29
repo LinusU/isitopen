@@ -22,3 +22,7 @@
     width: 96%;
     margin: 12px 2%;
 }
+
+#venue table td:last-child {
+    text-align: right;
+}
