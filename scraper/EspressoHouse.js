@@ -13,7 +13,9 @@ request({ uri: "http://www.espressohouse.se/kaffebarer.aspx" }, function (error,
     stores.each(function (i, store) {
         
         if($(store).attr('value') == 'baralla') {
-            --requests;
+            if(--requests == 0) {
+                isitopen.end();
+            }
             return ;
         }
         
