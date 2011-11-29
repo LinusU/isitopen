@@ -4,6 +4,21 @@
     top: 45px;
     left: 0px;
     bottom: 0px;
-    right: 0px;
+    width: 100%;
     background: white;
+    -webkit-animation-name: slidein;
+    -webkit-animation-duration: 400ms;
+}
+
+#venue.hide {
+    -webkit-animation-name: slideout;
+}
+
+#venue h1 {
+    text-align: center;
+}
+
+#venue table {
+    width: 96%;
+    margin: 12px 2%;
 }

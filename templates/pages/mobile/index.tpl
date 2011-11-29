@@ -15,6 +15,22 @@
         font-weight: normal;
         font-style: normal;
     }
+    @-webkit-keyframes slidein {
+        from { -webkit-transform: translate3d(100%, 0px, 0px); }
+        to { -webkit-transform: translate3d(0%, 0px, 0px); }
+    }
+    @-webkit-keyframes slideout {
+        from { -webkit-transform: translate3d(0%, 0px, 0px); }
+        to { -webkit-transform: translate3d(100%, 0px, 0px); }
+    }
+    @-webkit-keyframes cubein {
+        from { -webkit-transform: translate3d(0px, 50%, 0px) rotate3d(1, 0, 0, 90deg); opacity: .5; }
+        to { -webkit-transform: translate3d(0px, 0%, 0px) rotate3d(1, 0, 0, 0deg); opacity: 1; }
+    }
+    @-webkit-keyframes cubeout {
+        from { -webkit-transform: translate3d(0px, 0%, 0px) rotate3d(1, 0, 0, 0deg); opacity: 1; }
+        to { -webkit-transform: translate3d(0px, -50%, 0px) rotate3d(1, 0, 0, 90deg); opacity: .5; }
+    }
     </style>
     <script type="text/javascript" src="{"jquery-1.7.min.js"|cdn}"></script>
     <script type="text/javascript">
@@ -48,7 +64,7 @@
 <body>
     
     <header>
-        <h1>Västerås</h1>
+        <div><h1>Västerås</h1></div>
     </header>
     
     <article id="venues">
@@ -82,7 +98,7 @@
                 <tr><td>Tisdag:</td><td>{tue}</td></tr>
                 <tr><td>Onsdag:</td><td>{wed}</td></tr>
                 <tr><td>Torsdag:</td><td>{thu}</td></tr>
-                <tr><td>Fredag:</td><td>{fre}</td></tr>
+                <tr><td>Fredag:</td><td>{fri}</td></tr>
                 <tr><td>Lördag:</td><td>{sat}</td></tr>
                 <tr><td>Söndag:</td><td>{sun}</td></tr>
             </table>
@@ -108,7 +124,7 @@
                 var o = Date.parse(hours[day][0]),
                     c = Date.parse(hours[day][1] == "24:00:00" ? "00:00:00" : hours[day][1]);
                 
-                if(c < o) {
+                if(c <= o) {
                     c.add(1).day();
                 }
                 
@@ -119,7 +135,7 @@
                 o = Date.parse(hours[(day + 6) % 7][0]),
                 c = Date.parse(hours[(day + 6) % 7][1] == "24:00:00" ? "00:00:00" : hours[day][1]);
                 
-                if(c < o) {
+                if(c <= o) {
                     o.add(-1).day();
                 } else {
                     o.add(-1).day();
@@ -197,6 +213,10 @@
             var state = {};
             var display = function (venue) {
                 
+                if($('#venue').length) {
+                    return ;
+                }
+                
                 var $venue = $($.nano(
                     $('#tpl-venue').text(), {
                         title: venue.title,
@@ -206,15 +226,38 @@
                         thu: venue.hours[3][0] + " - " + venue.hours[3][1],
                         fri: venue.hours[4][0] + " - " + venue.hours[4][1],
                         sat: venue.hours[5][0] + " - " + venue.hours[5][1],
-                        sun: venue.hours[6][0] + " - " + venue.hours[6][1],
+                        sun: venue.hours[6][0] + " - " + venue.hours[6][1]
                     }
-                ));
+                )).appendTo('body');
                 
-                $venue.css({
-                    left: $(window).width()
-                }).animate({
-                    left: 0
-                });
+                state.header = $('header').html();
+                state.title = $('header h1').text();
+                
+                $('header>div').eq(0).css('WebkitAnimationName', 'cubeout');
+                
+                setTimeout(function () {
+                    
+                    $('header>div').eq(0).hide();
+                    
+                    var $back = $('<a class="left back" />').text(state.title);
+                    var $h1 = $('<h1 />').text(venue.title);
+                    var $div = $('<div />').append($back).append($h1);
+                    
+                    $back.one('click', function () {
+                        $div.css('WebkitAnimationName', 'cubeout');
+                        setTimeout(function () {
+                            $('header>div').eq(0).show().css('WebkitAnimationName', 'cubein');
+                            $div.remove();
+                        }, 200);
+                        $venue.addClass('hide');
+                        setTimeout(function () {
+                            $venue.remove();
+                        }, 400);
+                    });
+                    
+                    $('header').append($div.css('WebkitAnimationName', 'cubein'));
+                    
+                }, 200);
                 
             };
             
@@ -222,6 +265,11 @@
                 isitopen.coords.copy(pos.coords);
                 $(window).trigger('location');
             });
+            
+            navigator.geolocation.getCurrentPosition(function (pos) {
+                isitopen.coords.copy(pos.coords);
+                $(window).trigger('location');
+            }, jQuery.noop, { timeout: 1000, maximumAge: Infinity });
             
             $.getJSON(
                 "/data/vaesteraas/",
@@ -233,11 +281,11 @@
             );
             
             $(window).bind('location', refreshDistance);
-            /*
-            $('#venues').live('click', function () {
-                display(venues[0]);
+            
+            $('#venues').on('click', 'section', function () {
+                display(venues[$(this).index()]);
             });
-            */
+            
         });
     </script>
     
