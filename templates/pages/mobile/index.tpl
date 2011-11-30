@@ -63,20 +63,34 @@
 </head>
 <body>
     
-    <header>
-        <div><h1>Västerås</h1></div>
-    </header>
-    
-    <article id="venues">
-        
-        
-        
-        
-        
-    </article>
-    
     {literal}
-    <script type="text/pure" id="tpl-open">
+    <script type="text/html" id="tpl-splash">
+        <div id="splash">
+            
+            <h1>Is It Open?</h1>
+            
+            <p>
+                Is It Open är den perfekta appen för dig som vill vet om saker är öppet, bla bla bla! Nihil labore
+                dolor in beard laboris. Elit laboris adipisicing, PBR laborum magna consectetur nostrud four loko
+                irony Austin raw denim yr. Tempor helvetica synth, nostrud laborum iphone nisi eiusmod organic
+                aliquip assumenda adipisicing wolf non DIY.
+            </p>
+            
+            <div id="msg">
+                För att installera appen, klicka på {icon} här nedan, och välj <strong>"{text}"</strong>.
+            </div>
+            
+        </div>
+    </script>
+    
+    <script type="text/html" id="tpl-main">
+        <header>
+            <div><h1>{title}</h1></div>
+        </header>
+        <article id="venues"></article>
+    </script>
+    
+    <script type="text/html" id="tpl-open">
         <section class="open">
             <h2>{title}</h2>
             <p>{distance}</p>
@@ -84,13 +98,13 @@
         </section>
     </script>
     
-    <script type="text/pure" id="tpl-closed">
+    <script type="text/html" id="tpl-closed">
         <section class="closed">
             <h2>{title}</h2>
         </section>
     </script>
     
-    <script type="text/pure" id="tpl-venue">
+    <script type="text/html" id="tpl-venue">
         <article id="venue">
             <h1>{title}</h1>
             <table>
@@ -108,6 +122,25 @@
     
     <script type="text/javascript">
         $(function () {
+            
+            if(!window.navigator.standalone) {
+                
+                var OSVersion = navigator.appVersion.match(/OS \d+_\d+/g);
+                OSVersion = OSVersion ? OSVersion[0].replace(/[^\d_]/g,'').replace('_','.')*1 : 0;
+                
+                var $splash = $($.nano($('#tpl-splash').text(), {
+                    icon: (OSVersion >= 4.2 ? '<span class="share"></span>' : '<span class="plus">+</span>'),
+                    text: (navigator.language == "sv-se" ? "Lägg till på hemskärmen" : "Add to Home Screen")
+                }));
+                
+                $('body').append($splash);
+                
+                return ;
+            }
+            
+            $('body').append($.nano($('#tpl-main').text(), {
+                title: 'Västerås'
+            }));
             
             var venues = [];
             
@@ -132,8 +165,12 @@
                     return c - now;
                 }
                 
+                if(hours[(day + 6) % 7] === null) {
+                    return 0;
+                }
+                
                 o = Date.parse(hours[(day + 6) % 7][0]),
-                c = Date.parse(hours[(day + 6) % 7][1] == "24:00:00" ? "00:00:00" : hours[day][1]);
+                c = Date.parse(hours[(day + 6) % 7][1] == "24:00:00" ? "00:00:00" : hours[(day + 6) % 7][1]);
                 
                 if(c <= o) {
                     o.add(-1).day();
@@ -187,7 +224,7 @@
                     
                     var data = {
                         title: this.title,
-                        distance: isitopen.meter2text(this.__distance__),
+                        distance: isitopen.meter2text((this.__distance__ === undefined)?NaN:this.__distance__),
                         duration: (function () {
                             var min = Math.ceil(this.__duration__ / 60000);
                             if(min < 2) {
@@ -276,7 +313,6 @@
                 function (data) {
                     venues = data.data;
                     refreshDuration();
-                    refreshDistance();
                 }
             );
             
