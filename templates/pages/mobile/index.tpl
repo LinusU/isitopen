@@ -90,17 +90,11 @@
         <article id="venues"></article>
     </script>
     
-    <script type="text/html" id="tpl-open">
-        <section class="open">
+    <script type="text/html" id="tpl-row">
+        <section class="{class}">
             <h2>{title}</h2>
             <p>{distance}</p>
             <p>{duration}</p>
-        </section>
-    </script>
-    
-    <script type="text/html" id="tpl-closed">
-        <section class="closed">
-            <h2>{title}</h2>
         </section>
     </script>
     
@@ -123,7 +117,7 @@
     <script type="text/javascript">
         $(function () {
             
-            if(!window.navigator.standalone) {
+            if(/iphone|ipod|ipad/gi.test(navigator.platform) && !window.navigator.standalone) {
                 
                 var OSVersion = navigator.appVersion.match(/OS \d+_\d+/g);
                 OSVersion = OSVersion ? OSVersion[0].replace(/[^\d_]/g,'').replace('_','.')*1 : 0;
@@ -144,55 +138,25 @@
             
             var venues = [];
             
-            var duration = function (hours) {
-                
-                var tmp;
-                var now = new Date();
-                var day = (now.getDay() + 6) % 7;
-                
-                if(hours[day] === null) {
-                    return 0;
-                }
-                
-                var o = Date.parse(hours[day][0]),
-                    c = Date.parse(hours[day][1] == "24:00:00" ? "00:00:00" : hours[day][1]);
-                
-                if(c <= o) {
-                    c.add(1).day();
-                }
-                
-                if(now.between(o, c)) {
-                    return c - now;
-                }
-                
-                if(hours[(day + 6) % 7] === null) {
-                    return 0;
-                }
-                
-                o = Date.parse(hours[(day + 6) % 7][0]),
-                c = Date.parse(hours[(day + 6) % 7][1] == "24:00:00" ? "00:00:00" : hours[(day + 6) % 7][1]);
-                
-                if(c <= o) {
-                    o.add(-1).day();
-                } else {
-                    o.add(-1).day();
-                    c.add(-1).day();
-                }
-                
-                return ( now.between(o, c) ? c - now : 0 );
-            };
+            var duration = isitopen.duration.left;
             
             var refreshDistance = function () {
                 
                 $.each(venues, function () {
                     this.__distance__ = isitopen.distance_to(this.lat, this.lon);
+                    this.element.find('p').eq(0).text(isitopen.meter2text(this.__distance__));
                 });
                 
                 venues.sort(function (a, b) {
                     return ( a.__distance__ > b.__distance__ ? 1 : -1 );
                 });
                 
-                return refresh();
+                var parent = $('#venues')[0];
+                
+                for(var i=0; i<venues.length; i++) {
+                    parent.appendChild(venues[i].element[0]);
+                }
+                
             };
             
             var refreshDuration = function () {
@@ -202,99 +166,16 @@
                 
                 $.each(venues, function () {
                     this.__duration__ = duration(this.hours);
+                    this.element.find('p').eq(1).text(isitopen.duration.format(this.__duration__));
                     if(this.__duration__ > 0 && this.__duration__ <= 60000) {
                         next = 1000 - (now % 1000);
                     }
                 });
                 
                 setTimeout(refreshDuration, next);
-                
-                return refresh();
             };
             
             var refresh = function () {
-                
-                if(isitopen.coords.lat == 0 && isitopen.coords.lon == 0) {
-                    return ;
-                }
-                
-                var html = '';
-                
-                $.each(venues, function () {
-                    
-                    var data = {
-                        title: this.title,
-                        distance: isitopen.meter2text((this.__distance__ === undefined)?NaN:this.__distance__),
-                        duration: (function () {
-                            var min = Math.ceil(this.__duration__ / 60000);
-                            if(min < 2) {
-                                var sec = Math.floor(this.__duration__ / 1000);
-                                return ((sec>0)?(sec + " sekunder"):("Stängt!"));
-                            } else {
-                                return (((min>=60)?(Math.floor(min / 60) + " timm" + (min<120?"e":"ar")):"") + " " + (min % 60) + " minut" + (min % 60 > 1 ? "er" : ""));
-                            }
-                        }).apply(this)
-                    };
-                    
-                    if(this.__duration__ > 0) {
-                        html += $.nano($('#tpl-open').text(), data);
-                    } else {
-                        html += $.nano($('#tpl-closed').text(), data);
-                    }
-                    
-                });
-                
-                $('#venues').html(html);
-            };
-            
-            var state = {};
-            var display = function (venue) {
-                
-                if($('#venue').length) {
-                    return ;
-                }
-                
-                var $venue = $($.nano(
-                    $('#tpl-venue').text(), {
-                        title: venue.title,
-                        mon: venue.hours[0]?venue.hours[0][0] + " - " + venue.hours[0][1]:"Stängt",
-                        tue: venue.hours[1]?venue.hours[1][0] + " - " + venue.hours[1][1]:"Stängt",
-                        wed: venue.hours[2]?venue.hours[2][0] + " - " + venue.hours[2][1]:"Stängt",
-                        thu: venue.hours[3]?venue.hours[3][0] + " - " + venue.hours[3][1]:"Stängt",
-                        fri: venue.hours[4]?venue.hours[4][0] + " - " + venue.hours[4][1]:"Stängt",
-                        sat: venue.hours[5]?venue.hours[5][0] + " - " + venue.hours[5][1]:"Stängt",
-                        sun: venue.hours[6]?venue.hours[6][0] + " - " + venue.hours[6][1]:"Stängt"
-                    }
-                )).appendTo('body');
-                
-                state.header = $('header').html();
-                state.title = $('header h1').text();
-                
-                $('header>div').eq(0).css('WebkitAnimationName', 'cubeout');
-                
-                setTimeout(function () {
-                    
-                    $('header>div').eq(0).hide();
-                    
-                    var $back = $('<a class="left back" />').text(state.title);
-                    var $h1 = $('<h1 />').text(venue.title);
-                    var $div = $('<div />').append($back).append($h1);
-                    
-                    $back.one('click', function () {
-                        $div.css('WebkitAnimationName', 'cubeout');
-                        setTimeout(function () {
-                            $('header>div').eq(0).show().css('WebkitAnimationName', 'cubein');
-                            $div.remove();
-                        }, 200);
-                        $venue.addClass('hide');
-                        setTimeout(function () {
-                            $venue.remove();
-                        }, 400);
-                    });
-                    
-                    $('header').append($div.css('WebkitAnimationName', 'cubein'));
-                    
-                }, 200);
                 
             };
             
@@ -308,18 +189,32 @@
                 $(window).trigger('location');
             }, jQuery.noop, { timeout: 1000, maximumAge: Infinity });
             
-            $.getJSON(
-                "/data/vaesteraas/",
-                function (data) {
-                    venues = data.data;
-                    refreshDuration();
-                }
-            );
+            isitopen.data.fetch('vaesteraas', function (data) {
+                
+                venues = data.data;
+                
+                $.each(venues, function () {
+                    
+                    this.__duration__ = isitopen.duration.left(this.hours);
+                    
+                    var data = {
+                        'title': this.title,
+                        'distance': isitopen.meter2text(NaN),
+                        'duration': isitopen.duration.format(this.__duration__),
+                        'class': (this.__duration__ > 0) ? 'open' : 'closed'
+                    };
+                    
+                    this.element = $($.nano($('#tpl-row').text(), data)).appendTo('#venues');
+                    
+                });
+                
+                refreshDuration();
+            });
             
             $(window).bind('location', refreshDistance);
             
             $('#venues').on('click', 'section', function () {
-                display(venues[$(this).index()]);
+                isitopen.mobile.displayVenue(venues[$(this).index()]);
             });
             
         });
