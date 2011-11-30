@@ -208,7 +208,8 @@ exports.parse = {
             case 'lör': case 'lördag': return 5;
             case 'sön': case 'söndag': return 6;
         }
-        return null;
+        
+        throw new Error("Unparseable day: " + text);
     }
 };
 
