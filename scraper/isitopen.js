@@ -186,6 +186,12 @@ exports.parse = {
     duration: function (text) {
         var r;
         
+        r = /Stängt/i.exec(text);
+        
+        if(r) {
+            return null;
+        }
+        
         r = /(([0-9]{1,2})([.:]?([0-9]{1,2}))?) ?(-|to|till) ?(([0-9]{1,2})([.:]?([0-9]{1,2}))?)/i.exec(text);
         
         if(r) {
