@@ -1,6 +1,22 @@
+.sign {
+	width: 900px;
+	border-radius: 20px;
+	background: red;
+	padding: 8px 0px;
+	box-shadow: 0 0 3px #444;
+}
 
+.signbox {
+	width: 882px;
+	border-radius: 13px;
+	margin: auto;
+	background: #EEE;
+	border: solid 1px white;
+}
 #site {
-	margin: 70px auto auto 250px;
+
+	margin: 30px auto 0;
+	width: 960px;
 }
 
 #venues {

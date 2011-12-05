@@ -1,31 +1,34 @@
 
-<header>
-    <h1>Is It <a href="#">Open</a>?</h1>
-	    
-    <form action="" method="post">
-        <input type="text" placeholder="Agnegatan, Västerås" />
-    </form>
-    <a id="optionstoggler" href="javascript:toggleOptions();">Alternativ</a>
-
-	<div id="options">
-		<form >
-			<label for="">Visa </label> <a id="venuetypechoose">allt</a> <label for="">som är</label>
-			<select>
-				<option>
-					Öppet
-				</option>	
-				<option>
-					Existerande
-				</option>
-				<option>
-					Stängt
-				</option>
-			</select>
-			
-			
-		</form>
+<header class="sign">
+	<div class="signbox">
+	    <h1>
+	    	<i>Is it</i> 
+	    	<br />
+	    	<a href="#">OPEN</a>
+	    </h1>
+		    
+	    <form action="" method="post">
+	        <input type="text" placeholder="Agnegatan, Västerås" />
+	    </form>
+	    <a id="optionstoggler" href="javascript:toggleOptions();">Alternativ</a>
+	
+		<div id="options">
+			<form >
+				<label for="">Visa </label> <a id="venuetypechoose">allt</a> <label for="">som är</label>
+				<select>
+					<option>
+						Öppet
+					</option>	
+					<option>
+						Existerande
+					</option>
+					<option>
+						Stängt
+					</option>
+				</select>
+			</form>
+		</div>
 	</div>
-    
 </header>
 
 <article id="venues">    
