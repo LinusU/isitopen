@@ -16,9 +16,13 @@
                 <file name="date.js" />
                 <file name="history.js" />
                 <file name="history.adapter.jquery.js" />
+                <file name="jquery.nano.js" />
                 <file name="iio.ajax.js" />
+                <file name="iio.data.js" />
                 <file name="iio.search.js" />
                 <file name="iio.distance.js" />
+                <file name="iio.duration.js" />
+                <file name="iio.mobile.js" />
             </filelist>
         </concat>
     </target>

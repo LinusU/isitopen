@@ -20,6 +20,15 @@ header {
     z-index: 5000;
 }
 
+header>div {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    -webkit-animation-duration: 200ms;
+}
+
 header h1 {
     font-weight: normal;
     margin: 0px;

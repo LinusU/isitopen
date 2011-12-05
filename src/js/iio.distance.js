@@ -13,7 +13,7 @@ isitopen.coords = {
 isitopen.distance_to = function (lat, lon) {
     
     if(isitopen.coords.lat == 0 && isitopen.coords.lon == 0) {
-        return "x km";
+        return NaN;
     }
     
     return isitopen.distance(Math.sqrt(
@@ -28,7 +28,9 @@ isitopen.distance = function (md) {
 };
 
 isitopen.meter2text = function (m) {
-    if(m < 100) {
+    if(isNaN(m)) {
+        return "x km";
+    } if(m < 100) {
         return "Ett stenkast";
     } if(m < 1000) {
         return m + " meter";

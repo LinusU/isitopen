@@ -17,7 +17,7 @@ exports.trim = function (str) {
 exports.title2name = function (title) {
     return exports.trim(title)
         .toLowerCase()
-        .replace(/[-:\/\s]+/g, "-")
+        .replace(/[,-:\/\s]+/g, "-")
         .replace(/å/g, "aa")
         .replace(/[äæ]/g, "ae")
         .replace(/ö/g, "oe")
@@ -182,6 +182,40 @@ exports.parse = {
         }
         
         throw new Error("Unparseable time: " + text);
+    },
+    duration: function (text) {
+        var r;
+        
+        r = /Stängt/i.exec(text);
+        
+        if(r) {
+            return null;
+        }
+        
+        r = /(([0-9]{1,2})([.:]?([0-9]{1,2}))?) ?(-|to|till) ?(([0-9]{1,2})([.:]?([0-9]{1,2}))?)/i.exec(text);
+        
+        if(r) {
+            return [
+                exports.parse.time(r[1]),
+                exports.parse.time(r[6])
+            ];
+        }
+        
+        throw new Error("Unparseable duration: " + text);
+    },
+    day: function (text) {
+        if(!text) { return null; }
+        switch(text.toLowerCase()) {
+            case 'mån': case 'måndag': return 0;
+            case 'tis': case 'tisdag': return 1;
+            case 'ons': case 'onsdag': return 2;
+            case 'tors': case 'torsdag': return 3;
+            case 'fre': case 'fredag': return 4;
+            case 'lör': case 'lördag': return 5;
+            case 'sön': case 'söndag': return 6;
+        }
+        
+        throw new Error("Unparseable day: " + text);
     }
 };
 
