@@ -4,6 +4,7 @@
     <title>Is It Open</title>
     <link rel="shortcut icon" href="{"favicon.png"|cdn}" />
     <link rel="stylesheet" type="text/css" href="{"mobile.min.css"|cdn}" />
+    <link rel="apple-touch-startup-image" href="{"img/splash.png"|cdn}" />
     <style type="text/css">
     @font-face {
         font-family: 'Roboto';
@@ -173,10 +174,6 @@
                 });
                 
                 setTimeout(refreshDuration, next);
-            };
-            
-            var refresh = function () {
-                
             };
             
             navigator.geolocation.watchPosition(function (pos) {
