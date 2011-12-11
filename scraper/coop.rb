@@ -1,4 +1,4 @@
-#
+﻿#
 # Copyright (C) 2011 by
 # Emil @sakjur Tullstedt <sakjur@gmail.com>
 #
@@ -24,8 +24,11 @@ while $sidnr <= 50 do
 		puts $butiknr
 	
 		puts content.search('dl dt a').text
+
 		content.search('ul li').each do |oppettid|
-			# DETECT OPEN HOURS IN HERE
+			if oppettid.text.match(/[0-9]\:[0-9]/) or oppettid.text.downcase.match(/stängt/)
+				puts oppettid
+			end
 		end
 
 		$butiknr = $butiknr+1
