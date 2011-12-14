@@ -4,7 +4,6 @@
 #
 # This Ruby script requires:
 # gem mechanize
-# gem nokogirl (provided by mechanize)
 # ruby 1.9
 # libxslt-ruby
 # libxml2-ruby
@@ -26,8 +25,8 @@ while $sidnr <= 50 do
 		puts content.search('dl dt a').text
 
 		content.search('ul li').each do |oppettid|
-			if oppettid.text.match(/[0-9]\:[0-9]/) or oppettid.text.downcase.match(/stängt/)
-				puts oppettid
+			if oppettid.text.match(/[0-2]?[0-9]\:[0-6][0-9]/) or oppettid.text.downcase.match(/stängt/)
+				puts oppettid.text.delete("<li>").delete("</li>")
 			end
 		end
 
