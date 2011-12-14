@@ -1,10 +1,9 @@
-#
+﻿#
 # Copyright (C) 2011 by
 # Emil @sakjur Tullstedt <sakjur@gmail.com>
 #
 # This Ruby script requires:
 # gem mechanize
-# gem nokogirl (provided by mechanize)
 # ruby 1.9
 # libxslt-ruby
 # libxml2-ruby
@@ -35,7 +34,7 @@ while $sidnr <= 50 do
 			
 			oppettid.text.delete("<li>").delete("</li>")
 			
-			if oppettid.text.match(/[0-2]?[0-9]\:[0-6][0-9]/) == nil and oppettid.text.downcase.match(/stängt/) == nil and oppettid.text.downcase.match(/veckans erbjudande/) == nil and oppettid.text.downcase.match(/visa på kartan/) == nil and oppettid.text.downcase.match(/avvikande öppettider/) == nil
+			if oppettid.text.match(/[0-2]?[0-9]\:[0-6][0-9]/) == nil and oppettid.text.match(/stängt|avvikande öppettider|veckans erbjudande|visa på kartan/) == nil 
 				$dayname[$iv] = oppettid.text
 				$iv += 1
 			end
