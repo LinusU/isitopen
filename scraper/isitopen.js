@@ -216,6 +216,34 @@ exports.parse = {
         }
         
         throw new Error("Unparseable day: " + text);
+    },
+    days: function (text) {
+        
+        var ret = [];
+        var data = text.split(/-|till/i);
+        
+        if(data.length == 1) {
+            if(data[0].match(/alla dagar/i)) {
+                return [0, 1, 2, 3, 4, 5, 6]; 
+            } else {
+                return [exports.parse.day(data[0])];
+            }
+        }
+        
+        if(data.length != 2) {
+            throw new Error("Unparseable days: " + text);
+        }
+        
+        var b = exports.parse.day(data[0]);
+        var e = exports.parse.day(data[1]);
+        
+        for(var i=b; i!=e; i=(i+1)%7) {
+            ret.push(i);
+        }
+        
+        ret.push(e);
+        
+        return ret;
     }
 };
 
