@@ -17,6 +17,7 @@ exports.trim = function (str) {
 exports.title2name = function (title) {
     return exports.trim(title)
         .toLowerCase()
+        .replace(/[´`'"]+/g, "")
         .replace(/[,\-:\/\s]+/g, "-")
         .replace(/å/g, "aa")
         .replace(/[äæ]/g, "ae")
