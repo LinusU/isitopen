@@ -205,7 +205,7 @@ exports.parse = {
     },
     day: function (text) {
         if(!text) { return null; }
-        switch(text.toLowerCase()) {
+        switch(exports.trim(text.toLowerCase())) {
             case 'mån': case 'måndag': return 0;
             case 'tis': case 'tisdag': return 1;
             case 'ons': case 'onsdag': return 2;
