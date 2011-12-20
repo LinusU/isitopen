@@ -209,7 +209,7 @@ exports.parse = {
             case 'mån': case 'måndag': return 0;
             case 'tis': case 'tisdag': return 1;
             case 'ons': case 'onsdag': return 2;
-            case 'tors': case 'torsdag': return 3;
+            case 'tor': case 'tors': case 'torsdag': return 3;
             case 'fre': case 'fredag': return 4;
             case 'lör': case 'lördag': return 5;
             case 'sön': case 'söndag': return 6;
