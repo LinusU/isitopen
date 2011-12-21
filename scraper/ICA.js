@@ -1,4 +1,5 @@
 
+var RT90 = require('./lib/RT90');
 var jQuery = require('jquery');
 var request = require('request');
 var isitopen = require('./isitopen');
@@ -38,7 +39,7 @@ request({ encoding: 'binary', uri: "http://www.karthotellet.com/icakarta/functio
         }
         
         request({ uri: "http://www.ica.se/handlers/storedispatcher.ashx?storeId=" + data[8] }, function (error, response, body) {
-            console.log(data[8]);
+            
             var hours = [null, null, null, null, null, null, null];
             
             jQuery(body).find('.opening-hours').eq(0).find('li').each(function (i, li) {
@@ -74,11 +75,13 @@ request({ encoding: 'binary', uri: "http://www.karthotellet.com/icakarta/functio
                     title = "ICA " + title;
                 }
                 
+                latlon = RT90.RT90toWGS84(data[0], data[1]);
+                
                 isitopen.venue({
                     "title": title,
                     "type": "convenience",
-                    "lat": Math.round(data[1] * 1E1),
-                    "lon": Math.round(data[0] * 1E1),
+                    "lat": Math.round(latlon[0] * 1E6),
+                    "lon": Math.round(latlon[1] * 1E6),
                     "hours": hours
                 }, function () {
                     if(--requests == 0) {
