@@ -245,6 +245,25 @@ exports.parse = {
         ret.push(e);
         
         return ret;
+    },
+    coord: function (text) {
+        var r;
+        
+        r = /([NSEW]) ([0-9]+)[º°] ([0-9]+\.[0-9]+)'/i.exec(text);
+        
+        if(r) {
+            /*coords[(r[1].match(/[NS]/i)?0:1)] = */
+            return (r[1].match(/[SW]/i)?-1:1) * Math.round((parseInt(r[2], 10) + (parseFloat(r[3]) / 60)) * 1E6);
+        }
+        
+        r = /([NSEW]) ([0-9]+)º ([0-9]+)' ([0-9]+)/i.exec(text);
+        
+        if(r) {
+            /*coords[(r[1].match(/[NS]/i)?0:1)] = */
+            return (r[1].match(/[SW]/i)?-1:1) * Math.round((parseInt(r[2], 10) + ((parseFloat(r[3]) + (parseFloat(r[4]) / 60)) / 60)) * 1E6);
+        }
+        
+        throw new Error("Unparseable coord: " + text);
     }
 };
 
