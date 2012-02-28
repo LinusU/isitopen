@@ -8,7 +8,7 @@ if($city === false) {
 
 $smarty->contentType('text', 'json');
 
-$venues = venue::select()->where($city)->many();
+$venues = venue::select()->where(isset($parts[2])?array($city, 'type' => $parts[2]):$city)->many();
 
 echo '{"license": "Copyright, All Rights Reserved, Usage of this data without explicit permission is strictly forbidden!", "name": "' . $city->name . '", "title": "' . $city->title . '", "data": [';
 
