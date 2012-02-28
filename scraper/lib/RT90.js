@@ -17,6 +17,9 @@ var pow = Math.pow;
 
 exports.RT90toWGS84 = function (x, y) {
     
+	/* FIXME: This can't be good */
+	var xy = [x, y]; x = xy[1]; y = xy[0];
+	
     var LatitudeRad, LongitudeRad, CentralLongitudeRad, ConformalLatitudeRad, FalseNorthing, FalseEasting;
 	var DeltaLongitudeRad, Xi, Xiprim, eta, etaprim;
 	var delta1, delta2, delta3, delta4;
@@ -57,6 +60,9 @@ exports.RT90toWGS84 = function (x, y) {
 	LatitudeRad = CentralLongitudeRad + DeltaLongitudeRad;
 	LongitudeRad = ConformalLatitudeRad + sin(ConformalLatitudeRad) * cos(ConformalLatitudeRad) * (Astar + Bstar * pow((sin(ConformalLatitudeRad)),2) + Cstar * pow((sin(ConformalLatitudeRad)),4) + Dstar * pow((sin(ConformalLatitudeRad)),6));
     
+	/* FIXME: This can't be good */
+	var latlon = [LatitudeRad, LongitudeRad]; LatitudeRad = latlon[1]; LongitudeRad = latlon[0];
+	
 	return [
         ((180.0 / Pi) * LatitudeRad)/* + 0.5836446381*/,
         ((180.0 / Pi) * LongitudeRad)/* + 3.6950216293*/

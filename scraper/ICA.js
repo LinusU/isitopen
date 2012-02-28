@@ -75,13 +75,13 @@ request({ encoding: 'binary', uri: "http://www.karthotellet.com/icakarta/functio
                     title = "ICA " + title;
                 }
                 
-                latlon = RT90.RT90toWGS84(data[1], data[0]);
+                latlon = RT90.RT90toWGS84(data[0], data[1]);
                 
                 isitopen.venue({
                     "title": title,
                     "type": "convenience",
-                    "lat": Math.round(latlon[1] * 1E6),
-                    "lon": Math.round(latlon[0] * 1E6),
+                    "lat": Math.round(latlon[0] * 1E6),
+                    "lon": Math.round(latlon[1] * 1E6),
                     "hours": hours
                 }, function () {
                     if(--requests == 0) {
