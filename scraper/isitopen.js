@@ -224,11 +224,22 @@ exports.parse = {
         var data = text.split(/-|till/i);
         
         if(data.length == 1) {
-            if(data[0].match(/alla dagar/i)) {
+            
+            if(exports.trim(data[0]).match(/^alla( dagar ?(i veckan|kl|klockan)?)?$/i)) {
                 return [0, 1, 2, 3, 4, 5, 6]; 
-            } else {
+            }
+            
+            data = data[0].split(",");
+            
+            if(data.length == 1) {
                 return [exports.parse.day(data[0])];
             }
+            
+            for(var i in data) {
+                ret.push([exports.parse.day(exports.trim(data[i]))]);
+            }
+            
+            return ret;
         }
         
         if(data.length != 2) {
