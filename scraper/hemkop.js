@@ -43,7 +43,7 @@ request({ uri: "http://www.hemkop.se/Hitta-butik/" }, function (error, response,
         
         isitopen.venue({
             "title": title,
-            "type": "convenience",
+            "type": "supermarket",
             "lat": Math.round(store.Location.Latitude * 1E6),
             "lon": Math.round(store.Location.Longitude * 1E6),
             "hours": hours

@@ -38,7 +38,7 @@ var importStores = function (stores, cb) {
         
         isitopen.venue({
             "title": title,
-            "type": "convenience",
+            "type": "supermarket",
             "lat": Math.round(latlon[0] * 1E6),
             "lon": Math.round(latlon[1] * 1E6),
             "hours": hours
