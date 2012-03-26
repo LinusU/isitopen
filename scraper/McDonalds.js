@@ -32,7 +32,7 @@ request({ uri: "http://apps.mcdonalds.se/sweden/restSite.nsf/markers?readForm" }
             
             isitopen.venue({
                 "title": "McDonalds " + isitopen.trim($(body).find('#rest-info-area .heading h2').eq(0).text()),
-                "type": "restaurant",
+                "type": "fastfood",
                 "lat": Math.round(o.lat * 1E6),
                 "lon": Math.round(o.lng * 1E6),
                 "hours": hours

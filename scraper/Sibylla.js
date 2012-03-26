@@ -153,7 +153,7 @@ request({ uri: "http://www.sibylla.se/UI/Pages/GoogleMaps/GetData.aspx" }, funct
         
         isitopen.venue({
             "title": title,
-            "type": "restaurant",
+            "type": "fastfood",
             "lat": Math.round(o.Lat * 1E6),
             "lon": Math.round(o.Lan * 1E6),
             "hours": hours

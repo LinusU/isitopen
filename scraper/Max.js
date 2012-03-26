@@ -43,7 +43,7 @@ request({ uri: "http://max.se/restauranger.aspx" }, function (error, response, b
             isitopen.venue({
                 "name": "max-" + isitopen.title2name(rest.title),
                 "title": "Max " + rest.title,
-                "type": "restaurant",
+                "type": "fastfood",
                 "lat": rest.lat,
                 "lon": rest.lon,
                 "hours": hours

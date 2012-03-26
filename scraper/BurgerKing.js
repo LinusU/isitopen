@@ -100,7 +100,7 @@ request({ uri: "http://www.burgerking.se/t/RestaurantsXML.aspx" }, function (err
             isitopen.venue({
                 "name": "burgerking-" + isitopen.title2name($(rest).attr('name')),
                 "title": "Burger King " + $(rest).attr('name'),
-                "type": "restaurant",
+                "type": "fastfood",
                 "lat": Math.round($(rest).attr('latitude') * 1E6),
                 "lon": Math.round($(rest).attr('longitude') * 1E6),
                 "hours": hours
