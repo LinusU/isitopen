@@ -26,7 +26,7 @@ exports.title2name = function (title) {
         .replace(/[üûúù]/g, "u")
         .replace(/[ïîíì]/g, "i")
         .replace(/[ôóò]/g, "o")
-        .replace(/[^a-z]+/g, "-");
+        .replace(/[^a-z0-9]+/g, "-");
 };
 
 exports.city = function (city, cb) {
