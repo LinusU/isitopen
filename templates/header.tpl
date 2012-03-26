@@ -3,8 +3,14 @@
 <head>
     <title>Is It Open</title>
     <link rel="shortcut icon" href="{"favicon.png"|cdn}" />
+    {if isset($pageCSS)}
+    {if $pageCSS == 'main'}
+    <link rel="stylesheet" type="text/css" href="{"iio.min.css"|cdn}" />
+    {/if}
+    {else}
     <link rel="stylesheet" type="text/css" media="(min-width: 960px)" href="{"iio.min.css"|cdn}" />
     <link rel="stylesheet" type="text/css" media="(max-width: 959px)" href="{"mobile.min.css"|cdn}" />
+    {/if}
     <style type="text/css">
     @font-face {
         font-family: 'Roboto';
