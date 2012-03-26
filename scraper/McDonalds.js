@@ -34,7 +34,16 @@ request({ uri: "http://apps.mcdonalds.se/sweden/restSite.nsf/markers?readForm" }
                 title = "McDonald's " + title;
             }
             
+            var name = o.vanityname;
+            
+            if(/^mcdonalds/.test(name)) {
+                name = "mcdonalds-" + name.substring(9);
+            } else {
+                name = "mcdonalds-" + name;
+            }
+            
             isitopen.venue({
+                "name": name,
                 "title": title,
                 "type": "fastfood",
                 "lat": Math.round(o.lat * 1E6),
