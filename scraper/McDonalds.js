@@ -10,8 +10,6 @@ request({ uri: "http://apps.mcdonalds.se/sweden/restSite.nsf/markers?readForm" }
     var data = JSON.parse(body).markers;
     var requests = data.length;
     
-    console.log(requests);
-    
     if(requests == 0) {
         isitopen.end();
     }
@@ -22,16 +20,22 @@ request({ uri: "http://apps.mcdonalds.se/sweden/restSite.nsf/markers?readForm" }
             
             var hours = []
             
-            for(var i in o.openhours) {
-                if(o.openhours[i] == "always,1") {
+            for(var i=1;i<=7;i++) {
+                if(o.openhours[i % 7] == "always,1") {
                     hours.push(["00:00", "24:00"])
                 } else {
-                    hours.push(o.openhours[i].split(","))
+                    hours.push(o.openhours[i % 7].split(","))
                 }
             }
             
+            var title = isitopen.trim($(body).find('#rest-info-area .heading h2').eq(0).text());
+            
+            if(!/^Mc ?Donald'?s /.test(title)) {
+                title = "McDonald's " + title;
+            }
+            
             isitopen.venue({
-                "title": "McDonalds " + isitopen.trim($(body).find('#rest-info-area .heading h2').eq(0).text()),
+                "title": title,
                 "type": "fastfood",
                 "lat": Math.round(o.lat * 1E6),
                 "lon": Math.round(o.lng * 1E6),
