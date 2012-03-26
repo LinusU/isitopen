@@ -18,7 +18,6 @@ exports.title2name = function (title) {
     return exports.trim(title)
         .toLowerCase()
         .replace(/[´`'"]+/g, "")
-        .replace(/[,\-:\/\s]+/g, "-")
         .replace(/å/g, "aa")
         .replace(/[äæ]/g, "ae")
         .replace(/ö/g, "oe")
@@ -26,7 +25,8 @@ exports.title2name = function (title) {
         .replace(/[ëêéè]/g, "e")
         .replace(/[üûúù]/g, "u")
         .replace(/[ïîíì]/g, "i")
-        .replace(/[ôóò]/g, "o");
+        .replace(/[ôóò]/g, "o")
+        .replace(/[^a-z]+/g, "-");
 };
 
 exports.city = function (city, cb) {
