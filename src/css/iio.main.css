@@ -4,7 +4,7 @@ header {
 }
 
 
-h1 {
+header h1 {
 	font-size: 4.5em;
 	-webkit-margin-before: 0;
 	-webkit-margin-after: 0;
@@ -12,7 +12,7 @@ h1 {
 	text-shadow: 1px 0 2px #333, -1px 0 2px #DDD;
 }
 
-h2 {
+header h2 {
 	-webkit-margin-before: 0;
 	-webkit-margin-after: 0;
 }
@@ -33,7 +33,7 @@ input[type="text"] {
  	color: #888;
 }
 
-h1 a {
+header h1 a {
 	color: #37FF00;
 	text-shadow: 0 0 50px #82FC60,-1px 0 2px white, 1px 0 2px black;
 }

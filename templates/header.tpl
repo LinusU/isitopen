@@ -56,4 +56,3 @@
     </script>
 </head>
 <body>
-<div id="site">

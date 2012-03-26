@@ -2,9 +2,10 @@
 
 html,
 body{
-    margin: 0px;
-    padding: 0px;
-    font-family: 'Roboto', sans-serif;
+	margin: 0px;
+	padding: 0px;
+	height: 100%;
+	font-family: 'Roboto', sans-serif;
 	color: #333;
 	font-size: 100%;
 	line-height:1.125em;

@@ -1,0 +1,48 @@
+
+aside {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 256px;
+    bottom: 0px;
+    -webkit-overflow-scrolling: touch;
+}
+
+#map {
+    position: absolute;
+    top: 0px;
+    left: 256px;
+    right: 0px;
+    bottom: 0px;
+}
+
+aside div {
+    background: #EEE;
+    padding: 10px 12px;
+    border-bottom: 2px solid #999;
+}
+
+aside div:active {
+    background: #CCC;
+}
+
+aside div.loading {
+    background: #EEE url(/img/loader-eee.gif) no-repeat scroll 212px center;
+}
+
+.popup {
+    min-width: 192px;
+}
+
+.popup h1 {
+    margin: 0px;
+    padding: 0px 0px 16px;
+    font-size: 16pt;
+}
+
+.popup table {
+    width: 100%;
+    padding: 0px;
+    margin: 0px;
+    font-size: 10pt;
+}
