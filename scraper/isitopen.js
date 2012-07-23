@@ -207,13 +207,13 @@ exports.parse = {
     day: function (text) {
         if(!text) { return null; }
         switch(exports.trim(text.toLowerCase()).replace(/:/g, "")) {
-            case 'mån': case 'månd': case 'måndag': return 0;
-            case 'tis': case 'tisd': case 'tisdag': return 1;
-            case 'ons': case 'onsd': case 'onsdag': return 2;
-            case 'tor': case 'tors': case 'torsdag': return 3;
-            case 'fre': case 'fred': case 'fredag': return 4;
-            case 'lör': case 'lörd': case 'lördag': case 'lörddag': return 5;
-            case 'sön': case 'sönd': case 'söndag': return 6;
+            case 'må': case 'mån': case 'månd': case 'måndag': return 0;
+            case 'ti': case 'tis': case 'tisd': case 'tisdag': return 1;
+            case 'on': case 'ons': case 'onsd': case 'onsdag': return 2;
+            case 'to': case 'tor': case 'tors': case 'torsdag': return 3;
+            case 'fr': case 'fre': case 'fred': case 'fredag': return 4;
+            case 'lö': case 'lör': case 'lörd': case 'lördag': case 'lörddag': return 5;
+            case 'sö': case 'sön': case 'sönd': case 'söndag': return 6;
         }
         
         throw new Error("Unparseable day: " + text);
